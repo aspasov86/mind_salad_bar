@@ -1,3 +1,398 @@
+@font-face {
+	font-family: 'HCo Archer SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/ArcherSSm-Light_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/ArcherSSm-Light_Web.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'HCo Archer SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/ArcherSSm-LightItalic_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/ArcherSSm-LightItalic_Web.woff') format('woff');
+	font-weight: 400;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'HCo Archer SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/ArcherSSm-Book_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/ArcherSSm-Book_Web.woff') format('woff');
+	font-weight: 500;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'HCo Archer SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/ArcherSSm-BookItalic_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/ArcherSSm-BookItalic_Web.woff') format('woff');
+	font-weight: 500;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'HCo Archer SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/ArcherSSm-Medium_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/ArcherSSm-Medium_Web.woff') format('woff');
+	font-weight: 600;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'HCo Archer SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/ArcherSSm-MediumItalic_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/ArcherSSm-MediumItalic_Web.woff') format('woff');
+	font-weight: 600;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'HCo Archer SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/ArcherSSm-Semibold_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/ArcherSSm-Semibold_Web.woff') format('woff');
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'HCo Archer SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/ArcherSSm-SemiboldItalic_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/ArcherSSm-SemiboldItalic_Web.woff') format('woff');
+	font-weight: 700;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'HCo Archer SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/ArcherSSm-Bold_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/ArcherSSm-Bold_Web.woff') format('woff');
+	font-weight: 800;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'HCo Archer SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/ArcherSSm-BoldItalic_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/ArcherSSm-BoldItalic_Web.woff') format('woff');
+	font-weight: 800;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'HCo Gotham SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/GothamSSm-XLight_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/GothamSSm-XLight_Web.woff') format('woff');
+	font-weight: 200;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'HCo Gotham SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/GothamSSm-XLightItalic_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/GothamSSm-XLightItalic_Web.woff') format('woff');
+	font-weight: 200;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'HCo Gotham SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/GothamSSm-Light_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/GothamSSm-Light_Web.woff') format('woff');
+	font-weight: 300;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'HCo Gotham SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/GothamSSm-LightItalic_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/GothamSSm-LightItalic_Web.woff') format('woff');
+	font-weight: 300;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'HCo Gotham SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/GothamSSm-Book_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/GothamSSm-Book_Web.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'HCo Gotham SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/GothamSSm-BookItalic_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/GothamSSm-BookItalic_Web.woff') format('woff');
+	font-weight: 400;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'HCo Gotham SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/GothamSSm-Medium_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/GothamSSm-Medium_Web.woff') format('woff');
+	font-weight: 500;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'HCo Gotham SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/GothamSSm-MediumItalic_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/GothamSSm-MediumItalic_Web.woff') format('woff');
+	font-weight: 500;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'HCo Gotham SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/GothamSSm-Bold_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/GothamSSm-Bold_Web.woff') format('woff');
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'HCo Gotham SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/GothamSSm-BoldItalic_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/GothamSSm-BoldItalic_Web.woff') format('woff');
+	font-weight: 700;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'HCo Gotham SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/GothamSSm-Black_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/GothamSSm-Black_Web.woff') format('woff');
+	font-weight: 800;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'HCo Gotham SSm';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/GothamSSm-BlackItalic_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/GothamSSm-BlackItalic_Web.woff') format('woff');
+	font-weight: 800;
+	font-style: italic;
+}
+
+
+@font-face {
+	font-family: 'HCo Knockout 50';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/Knockout-50_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/Knockout-50_Web.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'HCo Knockout 51';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/Knockout-51_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/Knockout-51_Web.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'HCo Knockout 52';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/Knockout-52_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/Knockout-52_Web.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'HCo Knockout 53';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/Knockout-53_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/Knockout-53_Web.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'HCo Knockout 54';
+	src:url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff2/Knockout-54_Web.woff2') format('woff2'),
+		url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/hco_fonts/woff/Knockout-54_Web.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+
+
+@font-face {
+    font-family: "Knockout 50 A";
+    font-weight: 400;
+    font-style: normal;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/knockout50a-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Knockout 50 B";
+    font-weight: 400;
+    font-style: normal;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/knockout50b-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Archer SSm A";
+    font-weight: 400;
+    font-style: normal;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/archerssma-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Archer SSm B";
+    font-weight: 400;
+    font-style: normal;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/archerssmb-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Archer SSm A";
+    font-weight: 400;
+    font-style: italic;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/archerssma-400-italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Archer SSm B";
+    font-weight: 400;
+    font-style: italic;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/archerssmb-400-italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Archer SSm A";
+    font-weight: 700;
+    font-style: normal;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/archerssma-700-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Archer SSm B";
+    font-weight: 700;
+    font-style: normal;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/archerssmb-700-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Archer SSm A";
+    font-weight: 700;
+    font-style: italic;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/archerssma-700-italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Archer SSm B";
+    font-weight: 700;
+    font-style: italic;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/archerssmb-700-italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Archer SSm A";
+    font-weight: 800;
+    font-style: normal;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/archerssma-800-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Archer SSm B";
+    font-weight: 800;
+    font-style: normal;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/archerssmb-800-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Archer SSm A";
+    font-weight: 800;
+    font-style: italic;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/archerssma-800-italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Archer SSm B";
+    font-weight: 800;
+    font-style: italic;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/archerssmb-800-italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Gotham SSm A";
+    font-weight: 400;
+    font-style: normal;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/gothamssma-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Gotham SSm B";
+    font-weight: 400;
+    font-style: normal;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/gothamssmb-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Gotham SSm A";
+    font-weight: 400;
+    font-style: italic;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/gothamssma-400-italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Gotham SSm B";
+    font-weight: 400;
+    font-style: italic;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/gothamssmb-400-italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Gotham SSm A";
+    font-weight: 700;
+    font-style: normal;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/gothamssma-700-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Gotham SSm B";
+    font-weight: 700;
+    font-style: normal;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/gothamssmb-700-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Gotham SSm A";
+    font-weight: 700;
+    font-style: italic;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/gothamssma-700-italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "Gotham SSm B";
+    font-weight: 700;
+    font-style: italic;
+    font-display: fallback;
+    src: url('https://cdn.loveandlemons.com/wp-content/themes/loveandlemons5/fonts/gothamssmb-700-italic.woff2') format('woff2');
+}
+
 body {
-  background: #eeeeee;
+  font-family: "HCo Archer SSm"
 }
