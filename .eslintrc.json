@@ -1,0 +1,15 @@
+{
+    "extends": ["airbnb", "airbnb/hooks"],
+    "env": { "browser": true },
+    "rules": {
+        "linebreak-style": 0,
+        "max-len": [2, 130, 4, { "ignoreUrls": true }],
+        "comma-dangle": ["error", "never"],
+        "arrow-parens": [2, "as-needed", { "requireForBlockBody": true }],
+        "no-unused-expressions": ["error", { "allowTernary": true }],
+        "react/jsx-props-no-spreading" : "off",
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": true }],
+        "no-plusplus": "off",
+        "import/prefer-default-export": "off"
+    }
+}
