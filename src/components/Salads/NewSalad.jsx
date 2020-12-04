@@ -20,7 +20,7 @@ const NewSalad = ({ history }) => {
   };
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-around', alignContent: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center', padding: '1rem 0 .5rem 0' }}>
         <Header style={{ margin: 0 }}> New Salad</Header>
         <Button icon labelPosition="left" onClick={onBack}>
           <Icon name="arrow left" />

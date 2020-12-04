@@ -394,5 +394,8 @@
 }
 
 body {
-  font-family: "HCo Archer SSm"
+	font-family: "HCo Archer SSm";
+	font-size: .85rem;
+	letter-spacing: 0.04em;
+	font-weight: bold;
 }

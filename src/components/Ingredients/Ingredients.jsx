@@ -16,7 +16,7 @@ const Ingredients = ({ history }) => {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-around', alignContent: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center', padding: '1rem 0 .5rem 0' }}>
         <Header style={{ margin: 0 }}>Ingredients</Header>
         <Button icon labelPosition="left" primary onClick={onAddNew}>
           <Icon name="plus" />
@@ -36,9 +36,13 @@ const Ingredients = ({ history }) => {
             <Table.Body>
               {ingredients.map(({ id, ...ingredientData }) => (
                 <Table.Row key={id}>
-                  {columns.map(({ name, type }) => (
+                  {columns.map(({ name, type, render }) => (
                     <Table.Cell key={id + ingredientData[name]}>
-                      {type === 'image' ? <img src={ingredientData[name]} alt="" /> : ingredientData[name]}
+                      {type === 'image'
+                        ? <img src={ingredientData[name]} alt="" />
+                        : type === 'array'
+                          ? render(ingredientData)
+                          : ingredientData[name]}
                     </Table.Cell>
                   ))}
                 </Table.Row>

@@ -16,7 +16,7 @@ const Salads = ({ history }) => {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-around', alignContent: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center', padding: '1rem 0 .5rem 0' }}>
         <Header style={{ margin: 0 }}>Salads</Header>
         <Button icon labelPosition="left" primary onClick={onAddNew}>
           <Icon name="plus" />
