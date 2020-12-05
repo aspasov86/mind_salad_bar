@@ -8,7 +8,6 @@ import NewSalad from './components/Salads/NewSalad';
 import Ingredients from './components/Ingredients/Ingredients';
 import NewIngredient from './components/Ingredients/NewIngredient';
 import MenuBar from './components/MenuBar/MenuBar';
-import Layout from './components/Layout/Layout';
 
 const AppRouter = () => (
   <Router>
@@ -19,7 +18,7 @@ const AppRouter = () => (
           <Route exact path="/salads/new" component={NewSalad} />
           <Route exact path="/salads" component={Salads} />
           <Route exact path="/ingredients/new" component={NewIngredient} />
-          <Route exact path="/ingredients" component={Layout} />
+          <Route exact path="/ingredients" component={Ingredients} />
           <Redirect from="/" to="/salads" />
         </Switch>
       </Container>

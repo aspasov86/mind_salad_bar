@@ -10,6 +10,7 @@
         "react/jsx-props-no-spreading" : "off",
         "import/no-extraneous-dependencies": ["error", {"devDependencies": true }],
         "no-plusplus": "off",
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "react-hooks/exhaustive-deps": "off"
     }
 }

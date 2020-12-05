@@ -19,3 +19,8 @@ export const saveIngredient = async (data) => {
   const res = await axios.post('/ingredients', data);
   return res.data;
 };
+
+export const getSaladIngredients = async (saladId) => {
+  const res = await axios.get(`/salads/${saladId}/ingredients`);
+  return res.data;
+};
