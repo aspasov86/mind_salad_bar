@@ -5,7 +5,7 @@ import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid/Grid';
 const Layout = ({
   title, tools, bottomLeft, bottomRight, bottom
 }) => (
-  <Grid celled style={{ boxShadow: 'none' }}>
+  <Grid celled style={{ boxShadow: 'none', margin: 0 }}>
     <Grid.Row style={{ boxShadow: '0 0 0 0 #d4d4d5' }}>
       <Grid.Column
         width={11}

@@ -20,7 +20,7 @@ const MenuBar = () => (
     <div style={style} />
     <Container>
       <Menu secondary className={styles.menubar}>
-        <Menu.Item style={{ paddingLeft: 0 }}>
+        <Menu.Item>
           <Header as="h3">
             <span style={{ color: '#3EB477' }}>Mind</span>
             <span style={{ color: '#FFB926' }}>salad</span>

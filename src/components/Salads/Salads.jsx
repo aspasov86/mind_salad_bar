@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useMemo } from 'react';
 import { find, uniq } from 'lodash';
 import Item from 'semantic-ui-react/dist/commonjs/views/Item/Item';
@@ -60,6 +59,10 @@ const Salads = ({ history }) => {
         })
     );
   }, [searchTerm, tagFilter, caloriesSortType]);
+
+  useEffect(() => {
+    if (!find(filteredSalads, ['id', activeSaladId])) setActiveSaladId(null);
+  }, [filteredSalads]);
 
   const onAddNew = () => history.push('/salads/new');
   const sortByCaloriesHandler = () => setCaloriesSortType(caloriesSortType === 'desc' ? 'asc' : 'desc');
