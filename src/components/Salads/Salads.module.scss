@@ -1,0 +1,15 @@
+.active {
+  box-shadow: 0 5px 16px rgba(62, 180, 119, 0.19) !important;
+  border-left: 2px solid #3EB477 !important;
+  background: rgba(62, 180, 119, 0.09) !important
+}
+
+.hover {
+  box-shadow: 0 5px 16px rgba(255, 185, 38, 0.19) !important;
+  background: rgba(255, 185, 38, 0.09) !important;
+}
+
+.item {
+  padding: 1em !important;
+  position: relative !important;
+}

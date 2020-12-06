@@ -5,6 +5,7 @@ import {
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container/Container';
 import Salads from './components/Salads/Salads';
 import NewSalad from './components/Salads/NewSalad';
+import EditSalad from './components/Salads/EditSalad';
 import Ingredients from './components/Ingredients/Ingredients';
 import NewIngredient from './components/Ingredients/NewIngredient';
 import MenuBar from './components/MenuBar/MenuBar';
@@ -16,6 +17,7 @@ const AppRouter = () => (
       <Container>
         <Switch>
           <Route exact path="/salads/new" component={NewSalad} />
+          <Route exact path="/salads/:id" component={EditSalad} />
           <Route exact path="/salads" component={Salads} />
           <Route exact path="/ingredients/new" component={NewIngredient} />
           <Route exact path="/ingredients" component={Ingredients} />

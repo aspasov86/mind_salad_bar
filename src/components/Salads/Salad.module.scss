@@ -1,0 +1,12 @@
+.icons {
+  position: absolute;
+  top: .5rem;
+  right: 0;
+  i {
+    cursor: pointer !important;
+    opacity: .7 !important;
+    &:hover {
+      opacity: 1 !important;
+    }
+  }
+}

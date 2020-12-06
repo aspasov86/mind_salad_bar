@@ -5,8 +5,18 @@ export const getSalads = async () => {
   return res.data;
 };
 
-export const saveSalad = async (data) => {
+export const getSaladById = async (id) => {
+  const res = await axios.get(`/salads/${id}`);
+  return res.data;
+};
+
+export const createSalad = async (data) => {
   const res = await axios.post('/salads', data);
+  return res.data;
+};
+
+export const updateSalad = async (id, data) => {
+  const res = await axios.put(`/salads/${id}`, data);
   return res.data;
 };
 
@@ -30,10 +40,25 @@ export const addSaladIngredient = async (saladId, data) => {
   return res.data;
 };
 
-export const saveSaladData = async (saladId, { name, tags, ingredients }) => {
+export const removeSaladIngredient = async (saladId, ingredientId) => {
+  const res = await axios.delete(`/salads/${saladId}/ingredients/${ingredientId}`);
+  return res.data;
+};
+
+export const createSaladData = async ({ name, tags, ingredients }) => {
+  const salad = await createSalad({ name, tags });
+  const res = await Promise.all([...ingredients.map(ingredientData => addSaladIngredient(salad.id, ingredientData))]);
+  return res;
+};
+
+export const updateSaladData = async ({
+  id, name, tags, ingredients
+}, ingredientsForRemoval = []
+) => {
   const res = await Promise.all([
-    saveSalad({ name, tags }),
-    ...ingredients.map(ingredientData => addSaladIngredient(saladId, ingredientData))
+    updateSalad(id, { name, tags }),
+    ...ingredients.map(ingredientData => addSaladIngredient(id, ingredientData)),
+    ...ingredientsForRemoval.map(ingredientData => addSaladIngredient(id, ingredientData.id))
   ]);
   return res;
 };
