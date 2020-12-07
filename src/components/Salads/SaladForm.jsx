@@ -19,6 +19,7 @@ import ToolsBar from '../ToolsBar/ToolsBar';
 import ingredientsFilter from '../Ingredients/ingredientsFilter';
 import useFetching from '../../hooks/Fetching';
 import Loader from '../Loader/Loader';
+import styles from './SaladForm.module.scss';
 
 const SaladForm = ({
   history, mode, data, loading
@@ -80,6 +81,7 @@ const SaladForm = ({
             onClick={onSave}
             labelPosition="left"
             loading={creating || updating}
+            className={styles.saveBtn}
           />
         </div>
       )}

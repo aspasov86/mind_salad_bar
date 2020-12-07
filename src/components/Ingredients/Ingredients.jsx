@@ -9,6 +9,7 @@ import ToolsBar from '../ToolsBar/ToolsBar';
 import ingredientsFilter from './ingredientsFilter';
 import useFetching from '../../hooks/Fetching';
 import Loader from '../Loader/Loader';
+import styles from './Ingredients.module.scss';
 
 const Ingredients = ({ history }) => {
   const [ingredients, loading, fetchIngredients] = useFetching(getIngredients);
@@ -35,6 +36,7 @@ const Ingredients = ({ history }) => {
               label={{ basic: true, content: 'New ingredient' }}
               labelPosition="right"
               onClick={onAddNew}
+              className={styles.newBtn}
             />
           </div>
           <ToolsBar

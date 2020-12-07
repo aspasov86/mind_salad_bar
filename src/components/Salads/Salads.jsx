@@ -36,7 +36,7 @@ const Salads = ({ history }) => {
   }, [filteredSalads]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onAddNew = () => history.push('/salads/new');
-  const activeHandler = id => () => setActiveSaladId(id);
+  const activeHandler = id => () => setActiveSaladId(activeSaladId === id ? null : id);
   const editClickHandler = id => () => history.push(`/salads/${id}`);
   const saladDeleteHandler = id => async () => {
     const res = await deleteSalad(id);
@@ -53,6 +53,7 @@ const Salads = ({ history }) => {
               label={{ basic: true, content: 'New salad' }}
               labelPosition="right"
               onClick={onAddNew}
+              className={styles.newBtn}
             />
           </div>
           <ToolsBar
@@ -76,7 +77,7 @@ const Salads = ({ history }) => {
                   title={name}
                   tags={tags}
                   onClick={activeHandler(id)}
-                  activeClassName={styles.active}
+                  activeClassName={activeSaladId === id ? styles.active : ''}
                   onMouseEnter={mouseEnterHandler(id)}
                   onMouseLeave={onMouseLeave}
                   image={saladsImages[index % 2]}

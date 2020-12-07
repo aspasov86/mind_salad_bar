@@ -8,6 +8,7 @@ import useInput from '../../hooks/Input';
 import { createIngredient, updateIngredient } from '../../services/services';
 import Layout from '../Layout/Layout';
 import useAsyncSave from '../../hooks/AsyncSave';
+import styles from './IngredientsForm.module.scss';
 
 const IngredientsForm = ({
   history, mode, data, loading
@@ -63,6 +64,7 @@ const IngredientsForm = ({
             onClick={onSave}
             loading={saving}
             labelPosition="left"
+            className={styles.saveBtn}
           />
         </div>
       )}

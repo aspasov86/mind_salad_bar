@@ -9,7 +9,7 @@ import styles from './ListItem.module.scss';
 
 const getItemStyle = (hovered, activeClassName) => {
   const defaultStyle = styles.item;
-  const activeStyle = activeClassName ? styles.active : '';
+  const activeStyle = activeClassName || '';
   const hoverStyle = hovered && !activeStyle ? styles.hover : '';
   return `${defaultStyle} ${activeStyle} ${hoverStyle}`;
 };
