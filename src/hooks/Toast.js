@@ -30,15 +30,6 @@ const useToast = () => {
           time: 2000,
           onClose
         };
-      case 'Invalid credentials':
-        return {
-          type: 'error',
-          title: 'Error',
-          description: 'Invalid credentials',
-          animation: 'fly right',
-          time: 12000,
-          onClose
-        };
       default:
         return null;
     }
