@@ -5,6 +5,11 @@ export const getSalads = async () => {
   return res.data;
 };
 
+export const deleteSalad = async (id) => {
+  const res = await axios.delete(`/salads/${id}`);
+  return res.data;
+};
+
 export const getSaladById = async (id) => {
   const res = await axios.get(`/salads/${id}`);
   return res.data;
@@ -25,8 +30,23 @@ export const getIngredients = async () => {
   return res.data;
 };
 
-export const saveIngredient = async (data) => {
+export const deleteIngredient = async (id) => {
+  const res = await axios.delete(`/ingredients/${id}`);
+  return res.data;
+};
+
+export const getIngredientById = async (id) => {
+  const res = await axios.get(`/ingredients/${id}`);
+  return res.data;
+};
+
+export const createIngredient = async (data) => {
   const res = await axios.post('/ingredients', data);
+  return res.data;
+};
+
+export const updateIngredient = async (id, data) => {
+  const res = await axios.put(`/ingredients/${id}`, data);
   return res.data;
 };
 
@@ -35,7 +55,7 @@ export const getSaladIngredients = async (saladId) => {
   return res.data;
 };
 
-export const addSaladIngredient = async (saladId, data) => {
+export const addSaladIngredient = async ({ id: saladId, data }) => {
   const res = await axios.post(`/salads/${saladId}/ingredients`, data);
   return res.data;
 };
@@ -45,20 +65,44 @@ export const removeSaladIngredient = async (saladId, ingredientId) => {
   return res.data;
 };
 
+const getSequenceFetcher = () => {
+  let index = 0;
+  const bigRes = [];
+  const fetchInSequence = async (fetchFn, dataArray, id) => {
+    while (index < dataArray.length) {
+      const res = await fetchFn({ id, data: dataArray[index] }); // eslint-disable-line no-await-in-loop
+      if (res) {
+        index++;
+        bigRes.push(res);
+        await fetchInSequence(fetchFn, dataArray, id); // eslint-disable-line no-await-in-loop
+      }
+    }
+    return bigRes;
+  };
+  return fetchInSequence;
+};
+
 export const createSaladData = async ({ name, tags, ingredients }) => {
-  const salad = await createSalad({ name, tags });
-  const res = await Promise.all([...ingredients.map(ingredientData => addSaladIngredient(salad.id, ingredientData))]);
-  return res;
+  const bigRes = [];
+  const res = await createSalad({ name, tags });
+  const fetchInSequence = getSequenceFetcher();
+  const addRes = await fetchInSequence(addSaladIngredient, ingredients, res.id);
+  bigRes.push(...addRes);
+  return bigRes;
 };
 
 export const updateSaladData = async ({
   id, name, tags, ingredients
 }, ingredientsForRemoval = []
 ) => {
+  const bigRes = [];
   const res = await Promise.all([
     updateSalad(id, { name, tags }),
-    ...ingredients.map(ingredientData => addSaladIngredient(id, ingredientData)),
     ...ingredientsForRemoval.map(ingredientData => removeSaladIngredient(id, ingredientData.ingredientId))
   ]);
-  return res;
+  bigRes.push(...res);
+  const fetchInSequence = getSequenceFetcher();
+  const addRes = await fetchInSequence(addSaladIngredient, ingredients, id);
+  bigRes.push(...addRes);
+  return bigRes;
 };

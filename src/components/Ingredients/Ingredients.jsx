@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Item from 'semantic-ui-react/dist/commonjs/views/Item/Item';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
-import { getIngredients } from '../../services/services';
+import { getIngredients, deleteIngredient } from '../../services/services';
 import Layout from '../Layout/Layout';
 import ListItem from '../ListItem/ListItem';
 import ToolsBar from '../ToolsBar/ToolsBar';
@@ -9,6 +9,7 @@ import ingredientsFilter from './ingredientsFilter';
 
 const Ingredients = ({ history }) => {
   const [ingredients, setingredients] = useState([]);
+  const [shouldFetchIngredients, fetchIngredients] = useState(true);
   const [filteredIngredients, setFilteredIngredients] = useState(ingredients);
   const [itemHovered, setItemHovered] = useState(null);
 
@@ -16,10 +17,18 @@ const Ingredients = ({ history }) => {
   const onMouseLeave = () => setItemHovered(null);
 
   useEffect(() => {
-    getIngredients().then(setingredients);
-  }, []);
+    if (shouldFetchIngredients) {
+      getIngredients().then(setingredients);
+      fetchIngredients(false);
+    }
+  }, [shouldFetchIngredients]);
+
   const onAddNew = () => history.push('/ingredients/new');
   const editClickHandler = id => () => history.push(`/ingredients/${id}`);
+  const ingredientDeleteHandler = id => async () => {
+    const res = await deleteIngredient(id);
+    if (res) fetchIngredients(true);
+  };
   return (
     <Layout
       title="INGREDIENTS"
@@ -28,7 +37,7 @@ const Ingredients = ({ history }) => {
           <div style={{ flexGrow: 17 }}>
             <Button
               icon="add"
-              label={{ basic: true, content: 'New salad' }}
+              label={{ basic: true, content: 'New ingredient' }}
               labelPosition="right"
               onClick={onAddNew}
             />
@@ -57,6 +66,7 @@ const Ingredients = ({ history }) => {
                   tags={tags}
                   hovered={itemHovered === id}
                   onEdit={editClickHandler(id)}
+                  onDelete={ingredientDeleteHandler(id)}
                 />
               ))}
             </Item.Group>

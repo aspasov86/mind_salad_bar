@@ -7,7 +7,7 @@ import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
 import ListItem from '../ListItem/ListItem';
 import SaladIngredientsList from './SaladIngredientsList';
 import ToolsBar from '../ToolsBar/ToolsBar';
-import { getSalads } from '../../services/services';
+import { getSalads, deleteSalad } from '../../services/services';
 import Layout from '../Layout/Layout';
 import salad1 from '../../media/salad1.png';
 import salad2 from '../../media/salad2.png';
@@ -18,6 +18,7 @@ const saladsImages = [salad1, salad2];
 
 const Salads = ({ history }) => {
   const [salads, setSalads] = useState([]);
+  const [shouldFetchSalads, fetchSalads] = useState(true);
   const [activeSaladId, setActiveSaladId] = useState(null);
   const activeSalad = useMemo(() => find(salads, ['id', activeSaladId]), [activeSaladId]);
   const [filteredSalads, setFilteredSalads] = useState(salads);
@@ -27,8 +28,11 @@ const Salads = ({ history }) => {
   const onMouseLeave = () => setItemHovered(null);
 
   useEffect(() => {
-    getSalads().then(setSalads);
-  }, []);
+    if (shouldFetchSalads) {
+      getSalads().then(setSalads);
+      fetchSalads(false);
+    }
+  }, [shouldFetchSalads]);
 
   useEffect(() => {
     if (!find(filteredSalads, ['id', activeSaladId])) setActiveSaladId(null);
@@ -37,6 +41,10 @@ const Salads = ({ history }) => {
   const onAddNew = () => history.push('/salads/new');
   const activeHandler = id => () => setActiveSaladId(id);
   const editClickHandler = id => () => history.push(`/salads/${id}`);
+  const saladDeleteHandler = id => async () => {
+    const res = await deleteSalad(id);
+    if (res) fetchSalads(true);
+  };
   return (
     <Layout
       title="SALADS"
@@ -81,6 +89,7 @@ const Salads = ({ history }) => {
                   statistic={ingredients.reduce((ttl, curr) => ttl + curr.calories, 0)}
                   hovered={itemHovered === id}
                   onEdit={editClickHandler(id)}
+                  onDelete={saladDeleteHandler(id)}
                 />
               ))}
             </Item.Group>

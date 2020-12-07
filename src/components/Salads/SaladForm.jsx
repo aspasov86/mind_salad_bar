@@ -50,7 +50,7 @@ const SaladForm = ({
         id: data.id,
         name: saladName,
         tags: saladTags,
-        ingredients: saladIngredients
+        ingredients: saladIngredients.filter(({ id }) => !find(data.ingredients, ['id', id]))
       }, saladIngredientsForRemoval);
     } else {
       res = await createSaladData({ name: saladName, tags: saladTags, ingredients: saladIngredients });
@@ -106,7 +106,7 @@ const SaladForm = ({
               <Segment basic>
                 <span style={{ fontWeight: 900, textTransform: 'uppercase' }}>Ingrediens</span>
                 {' '}
-                can be added by clicking on a checkbox. They can be removed by unchecking. Are not required.
+                can be added by clicking on a checkbox. They can be removed by unchecking. They are not required.
               </Segment>
             </Grid.Column>
           </Grid.Row>

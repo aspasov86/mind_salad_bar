@@ -4,6 +4,7 @@ import Item from 'semantic-ui-react/dist/commonjs/views/Item/Item';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon/Icon';
 import Statistic from 'semantic-ui-react/dist/commonjs/views/Statistic/Statistic';
 import Label from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
+import DeletePopup from '../DeletePopup/DeletePopup';
 import styles from './ListItem.module.scss';
 
 const getItemStyle = (hovered, activeClassName) => {
@@ -40,12 +41,13 @@ const ListItem = ({
     {hovered && (
     <div className={styles.icons}>
       <Icon name="pencil" size="large" onClick={onEdit} />
-      <Icon
-        name="trash alternate"
-        size="large"
-        style={{ color: '#d11a2a' }}
-        onClick={onDelete}
-      />
+      <DeletePopup onDelete={onDelete}>
+        <Icon
+          name="trash alternate"
+          size="large"
+          style={{ color: '#d11a2a' }}
+        />
+      </DeletePopup>
     </div>
     )}
   </Item>
