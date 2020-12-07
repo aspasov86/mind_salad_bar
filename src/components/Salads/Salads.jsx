@@ -3,23 +3,18 @@ import { find } from 'lodash';
 import PropTypes from 'prop-types';
 import Item from 'semantic-ui-react/dist/commonjs/views/Item/Item';
 import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
-import Salad from './Salad';
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
+import ListItem from '../ListItem/ListItem';
 import SaladIngredientsList from './SaladIngredientsList';
-import SaladsListTools from './SaladsListTools';
+import ToolsBar from '../ToolsBar/ToolsBar';
 import { getSalads } from '../../services/services';
 import Layout from '../Layout/Layout';
 import salad1 from '../../media/salad1.png';
 import salad2 from '../../media/salad2.png';
 import styles from './Salads.module.scss';
+import saladsFilter from './saladsFilter';
 
 const saladsImages = [salad1, salad2];
-
-const getItemStyle = (activeSaladId, saladId, hoveredSalad) => {
-  const defaultStyle = styles.item;
-  const activeStyle = activeSaladId === saladId ? styles.active : '';
-  const hoverStyle = hoveredSalad === saladId && !activeStyle ? styles.hover : '';
-  return `${defaultStyle} ${activeStyle} ${hoverStyle}`;
-};
 
 const Salads = ({ history }) => {
   const [salads, setSalads] = useState([]);
@@ -45,7 +40,23 @@ const Salads = ({ history }) => {
   return (
     <Layout
       title="SALADS"
-      tools={<SaladsListTools salads={salads} onAddNew={onAddNew} setFilteredSalads={setFilteredSalads} />}
+      tools={(
+        <div style={{ display: 'flex', alignItems: 'stretch' }}>
+          <div style={{ flexGrow: 17 }}>
+            <Button
+              icon="add"
+              label={{ basic: true, content: 'New salad' }}
+              labelPosition="right"
+              onClick={onAddNew}
+            />
+          </div>
+          <ToolsBar
+            data={salads}
+            storeFilteredData={setFilteredSalads}
+            filterFn={saladsFilter}
+          />
+        </div>
+      )}
       bottomLeft={(
         <div>
           {filteredSalads.length ? (
@@ -53,16 +64,21 @@ const Salads = ({ history }) => {
               {filteredSalads.map(({
                 id, name, ingredients, tags
               }, index) => (
-                <Salad
+                <ListItem
                   key={id}
-                  name={name}
+                  title={name}
                   tags={tags}
                   onClick={activeHandler(id)}
-                  className={getItemStyle(activeSaladId, id, itemHovered)}
+                  activeClassName={styles.active}
                   onMouseEnter={mouseEnterHandler(id)}
                   onMouseLeave={onMouseLeave}
                   image={saladsImages[index % 2]}
-                  ingredients={ingredients}
+                  description={(
+                    ingredients.length
+                      ? `Ingredients: ${ingredients.map((ingredient => ingredient.name)).join(', ')}`
+                      : 'No ingredients'
+                  )}
+                  statistic={ingredients.reduce((ttl, curr) => ttl + curr.calories, 0)}
                   hovered={itemHovered === id}
                   onEdit={editClickHandler(id)}
                 />

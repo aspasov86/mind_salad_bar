@@ -58,7 +58,7 @@ export const updateSaladData = async ({
   const res = await Promise.all([
     updateSalad(id, { name, tags }),
     ...ingredients.map(ingredientData => addSaladIngredient(id, ingredientData)),
-    ...ingredientsForRemoval.map(ingredientData => addSaladIngredient(id, ingredientData.id))
+    ...ingredientsForRemoval.map(ingredientData => removeSaladIngredient(id, ingredientData.ingredientId))
   ]);
   return res;
 };

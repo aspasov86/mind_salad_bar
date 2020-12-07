@@ -14,11 +14,14 @@ import useInput from '../../hooks/Input';
 import { getIngredients, createSaladData, updateSaladData } from '../../services/services';
 import Layout from '../Layout/Layout';
 import useCheckboxes from './useCheckboxes';
+import ToolsBar from '../ToolsBar/ToolsBar';
+import ingredientsFilter from '../Ingredients/ingredientsFilter';
 
 const SaladForm = ({
   history, mode, data, loading
 }) => {
-  const [ingredients, setIngredients] = useState(null);
+  const [ingredients, setIngredients] = useState([]);
+  const [filteredIngredients, setFilteredIngredients] = useState(ingredients);
   const [options, setOptions] = useState([{ key: '1', text: 'gluten-free', value: 'gluten-free' }]);
   const [saladName, onSaladNameChange, setSaladName] = useInput();
   const [saladTags, onSaladTagsChange, setTags] = useInput([]);
@@ -145,9 +148,18 @@ const SaladForm = ({
           </Grid.Row>
           <Grid.Row>
             <Grid.Column>
-              <span style={{ display: 'block', fontSize: '.93rem', marginBottom: '-.4rem' }}>Ingredients</span>
-              <Segment.Group style={{ height: '54vh', overflowY: 'scroll' }}>
-                {ingredients && ingredients.map(({
+              <div style={{ display: 'flex', alignItems: 'stretch' }}>
+                <div style={{ flexGrow: 17, fontSize: '.93rem', alignSelf: 'flex-end' }}>
+                  Ingredients
+                </div>
+                <ToolsBar
+                  data={ingredients}
+                  storeFilteredData={setFilteredIngredients}
+                  filterFn={ingredientsFilter}
+                />
+              </div>
+              <Segment.Group style={{ maxHeight: '54vh', overflowY: 'scroll' }}>
+                {filteredIngredients.length && filteredIngredients.map(({
                   id, name, image, tags, calories
                 }) => (
                   <Segment key={id}>
