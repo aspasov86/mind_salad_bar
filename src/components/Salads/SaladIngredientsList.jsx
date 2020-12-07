@@ -8,9 +8,9 @@ import Image from 'semantic-ui-react/dist/commonjs/elements/Image/Image';
 const SaladIngredientsList = ({ activeSalad }) => (
   <List ordered>
     {activeSalad.ingredients.map(({
-      id, name, calories, image, tags
+      ingredientId, name, calories, image, tags
     }) => (
-      <List.Item key={id} style={{ display: 'flex', padding: '.8rem 0' }}>
+      <List.Item key={ingredientId} style={{ display: 'flex', padding: '.8rem 0' }}>
         <Image avatar src={image} style={{ height: '3em', width: '3em' }} />
         <List.Content>
           <List.Header>{name}</List.Header>

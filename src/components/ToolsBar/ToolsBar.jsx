@@ -11,7 +11,7 @@ const ToolsBar = ({ data, storeFilteredData, filterFn }) => {
   const [tagFilter, tagFilterHandler] = useInput();
   const allUniqSaladTags = useMemo(() => {
     let tags = [];
-    if (data.length) {
+    if (data && data.length) {
       tags = data.reduce((ttl, curr) => ttl.concat(curr.tags), []);
     }
     return uniq(tags);
@@ -21,13 +21,15 @@ const ToolsBar = ({ data, storeFilteredData, filterFn }) => {
 
   useEffect(() => {
     storeFilteredData(data);
-  }, [data]);
+  }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    storeFilteredData(filterFn(data, {
-      searchTerm, tagFilter, filterBy, sortType
-    }));
-  }, [searchTerm, tagFilter, filterBy, sortType]);
+    if (data && data.length) {
+      storeFilteredData(filterFn(data, {
+        searchTerm, tagFilter, filterBy, sortType
+      }));
+    }
+  }, [searchTerm, tagFilter, filterBy, sortType]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const sortByHandler = () => setSortType(sortType === 'desc' ? 'asc' : 'desc');
   return (
@@ -69,8 +71,10 @@ const ToolsBar = ({ data, storeFilteredData, filterFn }) => {
   );
 };
 
+ToolsBar.defaultProps = { data: null };
+
 ToolsBar.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({})),
   storeFilteredData: PropTypes.func.isRequired,
   filterFn: PropTypes.func.isRequired
 };

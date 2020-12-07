@@ -68,7 +68,7 @@ ListItem.propTypes = {
   image: PropTypes.string.isRequired,
   description: PropTypes.string,
   title: PropTypes.string.isRequired,
-  statistic: PropTypes.number.isRequired,
+  statistic: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   hovered: PropTypes.bool.isRequired,
   onEdit: PropTypes.func.isRequired,

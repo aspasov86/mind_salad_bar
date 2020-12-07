@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Item from 'semantic-ui-react/dist/commonjs/views/Item/Item';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
 import { getIngredients, deleteIngredient } from '../../services/services';
@@ -6,28 +7,22 @@ import Layout from '../Layout/Layout';
 import ListItem from '../ListItem/ListItem';
 import ToolsBar from '../ToolsBar/ToolsBar';
 import ingredientsFilter from './ingredientsFilter';
+import useFetching from '../../hooks/Fetching';
+import Loader from '../Loader/Loader';
 
 const Ingredients = ({ history }) => {
-  const [ingredients, setingredients] = useState([]);
-  const [shouldFetchIngredients, fetchIngredients] = useState(true);
-  const [filteredIngredients, setFilteredIngredients] = useState(ingredients);
+  const [ingredients, loading, fetchIngredients] = useFetching(getIngredients);
+  const [filteredIngredients, setFilteredIngredients] = useState(ingredients || []);
   const [itemHovered, setItemHovered] = useState(null);
 
   const mouseEnterHandler = id => () => setItemHovered(id);
   const onMouseLeave = () => setItemHovered(null);
 
-  useEffect(() => {
-    if (shouldFetchIngredients) {
-      getIngredients().then(setingredients);
-      fetchIngredients(false);
-    }
-  }, [shouldFetchIngredients]);
-
   const onAddNew = () => history.push('/ingredients/new');
   const editClickHandler = id => () => history.push(`/ingredients/${id}`);
   const ingredientDeleteHandler = id => async () => {
     const res = await deleteIngredient(id);
-    if (res) fetchIngredients(true);
+    if (res) fetchIngredients();
   };
   return (
     <Layout
@@ -49,9 +44,11 @@ const Ingredients = ({ history }) => {
           />
         </div>
       )}
-      bottom={(
+      bottom={loading ? (
+        <Loader />
+      ) : (
         <div>
-          {filteredIngredients.length ? (
+          {filteredIngredients && filteredIngredients.length ? (
             <Item.Group divided>
               {filteredIngredients.map(({
                 id, name, image, tags, calories
@@ -75,6 +72,12 @@ const Ingredients = ({ history }) => {
       )}
     />
   );
+};
+
+Ingredients.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }).isRequired
 };
 
 export default Ingredients;

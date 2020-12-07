@@ -14,49 +14,54 @@ import useInput from '../../hooks/Input';
 import { getIngredients, createSaladData, updateSaladData } from '../../services/services';
 import Layout from '../Layout/Layout';
 import useCheckboxes from './useCheckboxes';
+import useAsyncSave from '../../hooks/AsyncSave';
 import ToolsBar from '../ToolsBar/ToolsBar';
 import ingredientsFilter from '../Ingredients/ingredientsFilter';
+import useFetching from '../../hooks/Fetching';
+import Loader from '../Loader/Loader';
 
 const SaladForm = ({
   history, mode, data, loading
 }) => {
-  const [ingredients, setIngredients] = useState([]);
-  const [filteredIngredients, setFilteredIngredients] = useState(ingredients);
+  const [ingredients, loadingIngredients] = useFetching(getIngredients);
+  const [filteredIngredients, setFilteredIngredients] = useState(ingredients || []);
   const [options, setOptions] = useState([{ key: '1', text: 'gluten-free', value: 'gluten-free' }]);
   const [saladName, onSaladNameChange, setSaladName] = useInput();
   const [saladTags, onSaladTagsChange, setTags] = useInput([]);
   const [
     saladIngredients, checkIfSelected, checkboxClickHandler
   ] = useCheckboxes(ingredients, get(data, 'ingredients'));
-
-  useEffect(() => {
-    getIngredients().then(setIngredients);
-  }, []);
+  const onBack = () => history.push('/salads');
+  const [creating, create] = useAsyncSave(
+    async () => createSaladData({ name: saladName, tags: saladTags, ingredients: saladIngredients }),
+    onBack
+  );
+  const [updating, update] = useAsyncSave(
+    async () => {
+      const saladIngredientsForRemoval = data.ingredients.filter(({ id }) => !find(saladIngredients, ['id', id]));
+      const saladIngredientsForAddition = saladIngredients.filter(({ id }) => !find(data.ingredients, ['id', id]));
+      const res = await updateSaladData({
+        id: data.id,
+        name: saladName,
+        tags: saladTags,
+        ingredients: saladIngredientsForAddition
+      }, saladIngredientsForRemoval);
+      return res;
+    },
+    onBack
+  );
 
   useEffect(() => {
     if (data) {
       setSaladName(data.name);
+      setOptions([...data.tags.map(tag => ({ key: tag, value: tag, text: tag })), ...options]);
       setTags(data.tags);
     }
-  }, [data]);
+  }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onAddItem = (event, { value }) => setOptions([{ text: value, value }, ...options]);
-  const onBack = () => history.push('/salads');
-  const onSave = async () => {
-    let res = null;
-    if (mode === 'edit' && data) {
-      const saladIngredientsForRemoval = data.ingredients.filter(({ id }) => !find(saladIngredients, ['id', id]));
-      res = await updateSaladData({
-        id: data.id,
-        name: saladName,
-        tags: saladTags,
-        ingredients: saladIngredients.filter(({ id }) => !find(data.ingredients, ['id', id]))
-      }, saladIngredientsForRemoval);
-    } else {
-      res = await createSaladData({ name: saladName, tags: saladTags, ingredients: saladIngredients });
-    }
-    if (res) onBack();
-  };
+
+  const onSave = async () => (mode === 'edit' ? update() : create());
 
   return (
     <Layout
@@ -74,6 +79,7 @@ const SaladForm = ({
             label={{ basic: true, content: 'Save' }}
             onClick={onSave}
             labelPosition="left"
+            loading={creating || updating}
           />
         </div>
       )}
@@ -119,6 +125,7 @@ const SaladForm = ({
               <Form>
                 <Form.Input
                   label="Name"
+                  required
                   value={saladName}
                   onChange={onSaladNameChange}
                   loading={loading}
@@ -158,37 +165,41 @@ const SaladForm = ({
                   filterFn={ingredientsFilter}
                 />
               </div>
-              <Segment.Group style={{ maxHeight: '54vh', overflowY: 'scroll' }}>
-                {filteredIngredients.length && filteredIngredients.map(({
-                  id, name, image, tags, calories
-                }) => (
-                  <Segment key={id}>
-                    <Grid columns="equal">
-                      <Grid.Column width={1} textAlign="center" verticalAlign="middle">
-                        <Checkbox disabled={loading} checked={checkIfSelected(id)} onChange={checkboxClickHandler(id)} />
-                      </Grid.Column>
-                      <Grid.Column width={1} style={{ paddingLeft: 0, paddingRight: 0 }}>
-                        <Image src={image} style={{ height: '4rem', width: '4rem' }} rounded />
-                      </Grid.Column>
-                      <Grid.Column>
-                        <Grid.Row>
-                          <Header>{name}</Header>
-                        </Grid.Row>
-                        <Grid.Row>
-                          {tags.map(tag => <Label key={tag}>{tag}</Label>)}
-                        </Grid.Row>
-                      </Grid.Column>
-                      <Grid.Column textAlign="right" verticalAlign="middle">
-                        <Statistic size="mini">
-                          <Statistic.Value>
-                            {calories}
-                          </Statistic.Value>
-                          <Statistic.Label>Calories</Statistic.Label>
-                        </Statistic>
-                      </Grid.Column>
-                    </Grid>
-                  </Segment>
-                ))}
+              <Segment.Group style={{ maxHeight: '54vh', minHeight: '20vh', overflowY: 'scroll' }}>
+                {loadingIngredients ? (
+                  <Loader />
+                ) : (
+                  filteredIngredients && filteredIngredients.length && filteredIngredients.map(({
+                    id, name, image, tags, calories
+                  }) => (
+                    <Segment key={id}>
+                      <Grid columns="equal">
+                        <Grid.Column width={1} textAlign="center" verticalAlign="middle">
+                          <Checkbox disabled={loading} checked={checkIfSelected(id)} onChange={checkboxClickHandler(id)} />
+                        </Grid.Column>
+                        <Grid.Column width={1} style={{ paddingLeft: 0, paddingRight: 0 }}>
+                          <Image src={image} style={{ height: '4rem', width: '4rem' }} rounded />
+                        </Grid.Column>
+                        <Grid.Column>
+                          <Grid.Row>
+                            <Header>{name}</Header>
+                          </Grid.Row>
+                          <Grid.Row>
+                            {tags.map(tag => <Label key={tag}>{tag}</Label>)}
+                          </Grid.Row>
+                        </Grid.Column>
+                        <Grid.Column textAlign="right" verticalAlign="middle">
+                          <Statistic size="mini">
+                            <Statistic.Value>
+                              {calories}
+                            </Statistic.Value>
+                            <Statistic.Label>Calories</Statistic.Label>
+                          </Statistic>
+                        </Grid.Column>
+                      </Grid>
+                    </Segment>
+                  ))
+                )}
               </Segment.Group>
             </Grid.Column>
           </Grid.Row>

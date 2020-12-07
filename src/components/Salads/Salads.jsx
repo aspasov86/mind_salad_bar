@@ -13,37 +13,34 @@ import salad1 from '../../media/salad1.png';
 import salad2 from '../../media/salad2.png';
 import styles from './Salads.module.scss';
 import saladsFilter from './saladsFilter';
+import useFetching from '../../hooks/Fetching';
+import Loader from '../Loader/Loader';
 
 const saladsImages = [salad1, salad2];
 
 const Salads = ({ history }) => {
-  const [salads, setSalads] = useState([]);
-  const [shouldFetchSalads, fetchSalads] = useState(true);
+  const [salads, loading, fetchSalads] = useFetching(getSalads);
   const [activeSaladId, setActiveSaladId] = useState(null);
-  const activeSalad = useMemo(() => find(salads, ['id', activeSaladId]), [activeSaladId]);
-  const [filteredSalads, setFilteredSalads] = useState(salads);
+  const activeSalad = useMemo(
+    () => find(salads, ['id', activeSaladId]),
+    [activeSaladId] // eslint-disable-line react-hooks/exhaustive-deps
+  );
+  const [filteredSalads, setFilteredSalads] = useState(salads || []);
   const [itemHovered, setItemHovered] = useState(null);
 
   const mouseEnterHandler = id => () => setItemHovered(id);
   const onMouseLeave = () => setItemHovered(null);
 
   useEffect(() => {
-    if (shouldFetchSalads) {
-      getSalads().then(setSalads);
-      fetchSalads(false);
-    }
-  }, [shouldFetchSalads]);
-
-  useEffect(() => {
     if (!find(filteredSalads, ['id', activeSaladId])) setActiveSaladId(null);
-  }, [filteredSalads]);
+  }, [filteredSalads]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onAddNew = () => history.push('/salads/new');
   const activeHandler = id => () => setActiveSaladId(id);
   const editClickHandler = id => () => history.push(`/salads/${id}`);
   const saladDeleteHandler = id => async () => {
     const res = await deleteSalad(id);
-    if (res) fetchSalads(true);
+    if (res) fetchSalads();
   };
   return (
     <Layout
@@ -65,9 +62,11 @@ const Salads = ({ history }) => {
           />
         </div>
       )}
-      bottomLeft={(
+      bottomLeft={loading ? (
+        <Loader />
+      ) : (
         <div>
-          {filteredSalads.length ? (
+          {filteredSalads && filteredSalads.length ? (
             <Item.Group divided>
               {filteredSalads.map(({
                 id, name, ingredients, tags

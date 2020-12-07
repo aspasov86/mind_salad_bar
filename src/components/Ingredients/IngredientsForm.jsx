@@ -7,6 +7,7 @@ import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid/Grid';
 import useInput from '../../hooks/Input';
 import { createIngredient, updateIngredient } from '../../services/services';
 import Layout from '../Layout/Layout';
+import useAsyncSave from '../../hooks/AsyncSave';
 
 const IngredientsForm = ({
   history, mode, data, loading
@@ -16,19 +17,8 @@ const IngredientsForm = ({
   const [ingredienTags, onIngredienTagsChange, setIngredientTags] = useInput([]);
   const [ingredientImage, onIngredientImageChange, setIngredientImage] = useInput();
   const [ingredientCalories, onIngredientCaloriesChange, setIngredientCalories] = useInput();
-
-  useEffect(() => {
-    if (data) {
-      setIngredientName(data.name);
-      setIngredientTags(data.tags);
-      setIngredientImage(data.image);
-      setIngredientCalories(data.calories);
-    }
-  }, [data]);
-
-  const onAddItem = (event, { value }) => setOptions([{ text: value, value }, ...options]);
   const onBack = () => history.push('/ingredients');
-  const onSave = async () => {
+  const [saving, onSave] = useAsyncSave(async () => {
     let res = null;
     const fetchData = {
       name: ingredientName,
@@ -42,7 +32,19 @@ const IngredientsForm = ({
       res = await createIngredient(fetchData);
     }
     if (res) onBack();
-  };
+  }, onBack);
+
+  useEffect(() => {
+    if (data) {
+      setIngredientName(data.name);
+      setOptions([...data.tags.map(tag => ({ key: tag, value: tag, text: tag })), ...options]);
+      setIngredientTags(data.tags);
+      setIngredientImage(data.image);
+      setIngredientCalories(data.calories);
+    }
+  }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const onAddItem = (event, { value }) => setOptions([{ text: value, value }, ...options]);
 
   return (
     <Layout
@@ -59,6 +61,7 @@ const IngredientsForm = ({
             icon="save outline"
             label={{ basic: true, content: 'Save' }}
             onClick={onSave}
+            loading={saving}
             labelPosition="left"
           />
         </div>
@@ -72,7 +75,7 @@ const IngredientsForm = ({
                 {' '}
                 <span style={{ fontWeight: 900, textTransform: 'uppercase' }}>name</span>
                 {' '}
-                is required. It doesn&apos;t have to be unique.
+                is required. It doesn&apos;t have to be unique. It&apos;s required
               </Segment>
             </Grid.Column>
           </Grid.Row>
@@ -116,6 +119,7 @@ const IngredientsForm = ({
               <Form>
                 <Form.Input
                   label="Name"
+                  required
                   value={ingredientName}
                   onChange={onIngredientNameChange}
                   loading={loading}
@@ -147,6 +151,7 @@ const IngredientsForm = ({
             <Grid.Column>
               <Form>
                 <Form.Input
+                  required
                   label="Image (link)"
                   value={ingredientImage}
                   onChange={onIngredientImageChange}
@@ -160,6 +165,7 @@ const IngredientsForm = ({
             <Grid.Column>
               <Form>
                 <Form.Input
+                  required
                   label="Calories"
                   type="number"
                   value={ingredientCalories}

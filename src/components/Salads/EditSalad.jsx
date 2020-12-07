@@ -1,20 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import SaladForm from './SaladForm';
 import { getSaladById } from '../../services/services';
+import useFetching from '../../hooks/Fetching';
 
 const EditSalad = ({ match, ...props }) => {
-  const [salad, setSalad] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getSaladById(match.params.id)
-      .then((res) => {
-        setSalad(res);
-        setLoading(false);
-      });
-  }, []);
-
+  const [salad, loading] = useFetching(getSaladById.bind(null, match.params.id));
   return <SaladForm mode="edit" loading={loading} data={salad} {...props} />;
 };
 
