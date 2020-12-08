@@ -9,9 +9,9 @@ import styles from './SaladIngredientsList.module.scss';
 const SaladIngredientsList = ({ activeSalad }) => (
   <List ordered>
     {activeSalad.ingredients.map(({
-      ingredientId, name, calories, image, tags
+      id, name, calories, image, tags
     }) => (
-      <List.Item key={ingredientId} className={styles.item}>
+      <List.Item key={id} className={styles.item}>
         <Image avatar src={image} />
         <List.Content>
           <List.Header>{name}</List.Header>

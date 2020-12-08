@@ -35,8 +35,10 @@ const CheckListItem = ({
   </Segment>
 );
 
+CheckListItem.defaultProps = { checkboxDisabled: false };
+
 CheckListItem.propTypes = {
-  checkboxDisabled: PropTypes.bool.isRequired,
+  checkboxDisabled: PropTypes.bool,
   checked: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
   image: PropTypes.string.isRequired,

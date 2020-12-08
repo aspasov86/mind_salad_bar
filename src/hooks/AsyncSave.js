@@ -12,7 +12,7 @@ function useAsyncSave(asyncSaveFn, callbackFN, validator = () => true) {
         try {
           setLoading(true);
           let response = null;
-          if (validator) {
+          if (validator()) {
             response = await asyncSaveFn();
           }
           if (response) callbackFN();
