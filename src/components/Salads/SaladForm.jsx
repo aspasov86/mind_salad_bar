@@ -20,6 +20,7 @@ import TopBar from '../Layout/TopBar';
 import CheckListItem from '../CheckListItem/CheckListItem';
 import EmptyPlaceholder from '../EmptyPlaceholder/EmptyPlaceholder';
 import useMultiselect from '../../hooks/Multiselect';
+import useFormStateChangeChecker from '../../hooks/FormStateChangeChecker';
 import useSimpleFormValidation from '../../hooks/FormValidation';
 import { CREATE, EDIT } from '../../constants/constants';
 import styles from './SaladForm.module.scss';
@@ -36,24 +37,24 @@ const SaladForm = ({
   const [
     saladIngredients, checkIfSelected, checkboxClickHandler
   ] = useCheckboxes(ingredients, get(data, 'ingredients'));
+  const saveDisabled = useFormStateChangeChecker(
+    { name: get(data, 'name', ''), tags: get(data, 'tags', []), ingredients: get(data, 'ingredients', []) },
+    { name: saladName, tags: saladTags, ingredients: saladIngredients }
+  );
   const [errors, checkIfFormValid] = useSimpleFormValidation({ name: saladName });
   const onBack = () => history.push('/salads');
 
   const [creating, create] = useAsyncSave(
-    async () => {
-      if (checkIfFormValid()) createSalad({ name: saladName, tags: saladTags, ingredients: saladIngredients });
-    },
-    onBack
+    async () => createSalad({ name: saladName, tags: saladTags, ingredients: saladIngredients }),
+    onBack,
+    checkIfFormValid
   );
   const [updating, update] = useAsyncSave(
-    async () => {
-      if (checkIfFormValid()) {
-        updateSalad({
-          id: data.id, name: saladName, tags: saladTags, ingredients: saladIngredients
-        });
-      }
-    },
-    onBack
+    async () => updateSalad({
+      id: data.id, name: saladName, tags: saladTags, ingredients: saladIngredients
+    }),
+    onBack,
+    checkIfFormValid
   );
 
   const onSave = async () => (mode === EDIT ? update() : create());
@@ -67,6 +68,7 @@ const SaladForm = ({
           onBack={onBack}
           onSave={onSave}
           saving={creating || updating}
+          saveDisabled={saveDisabled}
         />
       )}
       bottomRight={(
@@ -149,6 +151,7 @@ const SaladForm = ({
                         id, name, image, tags, calories
                       }) => (
                         <CheckListItem
+                          key={id}
                           checkboxDisabled={loading}
                           checked={checkIfSelected(id)}
                           onChange={checkboxClickHandler(id)}

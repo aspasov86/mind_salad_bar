@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import useIsMounted from './isMounted';
 
-function useAsyncSave(asyncSaveFn, callbackFN) {
+function useAsyncSave(asyncSaveFn, callbackFN, validator = () => true) {
   const setStateIfMounted = useIsMounted();
   const [shouldSave, setShouldSave] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -11,7 +11,10 @@ function useAsyncSave(asyncSaveFn, callbackFN) {
       if (shouldSave) {
         try {
           setLoading(true);
-          const response = await asyncSaveFn();
+          let response = null;
+          if (validator) {
+            response = await asyncSaveFn();
+          }
           if (response) callbackFN();
         } finally {
           setStateIfMounted(setLoading, false);

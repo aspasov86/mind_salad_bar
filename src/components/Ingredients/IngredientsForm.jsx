@@ -8,11 +8,12 @@ import useMultiselect from '../../hooks/Multiselect';
 import { createIngredient, updateIngredient } from '../../services/ingredientService';
 import Layout from '../Layout/Layout';
 import useAsyncSave from '../../hooks/AsyncSave';
+import { CREATE, EDIT } from '../../constants/constants';
+import useSimpleFormValidation from '../../hooks/FormValidation';
+import useFormStateChangeChecker from '../../hooks/FormStateChangeChecker';
 import FormInfo from '../FormInfo/FormInfo';
 import FormButtons from '../FormButtons/FormButtons';
 import styles from './IngredientsForm.module.scss';
-import { CREATE, EDIT } from '../../constants/constants';
-import useSimpleFormValidation from '../../hooks/FormValidation';
 
 const IngredientsForm = ({
   history, mode, data, loading
@@ -28,25 +29,34 @@ const IngredientsForm = ({
     image: ingredientImage,
     calories: ingredientCalories
   });
+  const saveDisabled = useFormStateChangeChecker({
+    name: get(data, 'name', ''),
+    tags: get(data, 'tags', []),
+    image: get(data, 'image', ''),
+    calories: get(data, 'calories', '')
+  }, {
+    name: ingredientName,
+    tags: ingredienTags,
+    image: ingredientImage,
+    calories: !parseInt(ingredientCalories, 10) && parseInt(ingredientCalories, 10) !== 0 ? '' : parseInt(ingredientCalories, 10)
+  });
   const onBack = () => history.push('/ingredients');
 
   const [saving, onSave] = useAsyncSave(async () => {
     let res = null;
-    if (checkIfFormValid()) {
-      const fetchData = {
-        name: ingredientName,
-        tags: ingredienTags,
-        image: ingredientImage,
-        calories: parseInt(ingredientCalories, 10)
-      };
-      if (mode === EDIT && data) {
-        res = await updateIngredient(data.id, fetchData);
-      } else {
-        res = await createIngredient(fetchData);
-      }
+    const fetchData = {
+      name: ingredientName,
+      tags: ingredienTags,
+      image: ingredientImage,
+      calories: parseInt(ingredientCalories, 10)
+    };
+    if (mode === EDIT && data) {
+      res = await updateIngredient(data.id, fetchData);
+    } else {
+      res = await createIngredient(fetchData);
     }
     return res;
-  }, onBack);
+  }, onBack, checkIfFormValid);
 
   return (
     <Layout
@@ -57,6 +67,7 @@ const IngredientsForm = ({
           onBack={onBack}
           onSave={onSave}
           saving={saving}
+          saveDisabled={saveDisabled}
         />
       )}
       bottomRight={(

@@ -9,7 +9,7 @@ const useMultiselect = (defaultValue = '', defaultOptions = [], assignedValue = 
       setOptions([...assignedValue.map(tag => ({ key: tag, value: tag, text: tag })), ...options]);
       setDdValue(assignedValue);
     }
-  }, [assignedValue]);
+  }, [assignedValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onAddItem = (event, { value }) => setOptions([{ text: value, value }, ...options]);
   const onDdValueChange = (event, { value }) => setDdValue(value);
