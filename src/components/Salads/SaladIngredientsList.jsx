@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import List from 'semantic-ui-react/dist/commonjs/elements/List/List';
-import Statistic from 'semantic-ui-react/dist/commonjs/views/Statistic/Statistic';
 import Label from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
 import Image from 'semantic-ui-react/dist/commonjs/elements/Image/Image';
+import CaloriesNumber from '../CaloriesNumber/CaloriesNumber';
 
 const SaladIngredientsList = ({ activeSalad }) => (
   <List ordered>
@@ -19,12 +19,7 @@ const SaladIngredientsList = ({ activeSalad }) => (
           </List.Description>
         </List.Content>
         <List.Content style={{ marginLeft: 'auto' }}>
-          <Statistic size="mini">
-            <Statistic.Value>
-              {calories}
-            </Statistic.Value>
-            <Statistic.Label>Calories</Statistic.Label>
-          </Statistic>
+          <CaloriesNumber num={calories} size="mini" />
         </List.Content>
       </List.Item>
     ))}

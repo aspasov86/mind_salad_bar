@@ -14,7 +14,8 @@ const Layout = ({
           fontWeight: 'bold',
           display: 'flex',
           justifyContent: 'flex-end',
-          paddingRight: 0
+          paddingRight: 0,
+          textTransform: 'uppercase'
         }}
       >
         {title}

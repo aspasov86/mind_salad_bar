@@ -7,16 +7,16 @@ import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
 import ListItem from '../ListItem/ListItem';
 import SaladIngredientsList from './SaladIngredientsList';
 import ToolsBar from '../ToolsBar/ToolsBar';
-import { getSalads, deleteSalad } from '../../services/services';
+import { getSalads, deleteSalad } from '../../services/saladService';
 import Layout from '../Layout/Layout';
 import salad1 from '../../media/salad1.png';
 import salad2 from '../../media/salad2.png';
 import styles from './Salads.module.scss';
 import saladsFilter from './saladsFilter';
 import useFetching from '../../hooks/Fetching';
+import useHover from '../../hooks/Hover';
 import Loader from '../Loader/Loader';
-
-const saladsImages = [salad1, salad2];
+import EmptyPlaceholder from '../EmptyPlaceholder/EmptyPlaceholder';
 
 const Salads = ({ history }) => {
   const [salads, loading, fetchSalads] = useFetching(getSalads);
@@ -26,10 +26,7 @@ const Salads = ({ history }) => {
     [activeSaladId] // eslint-disable-line react-hooks/exhaustive-deps
   );
   const [filteredSalads, setFilteredSalads] = useState(salads || []);
-  const [itemHovered, setItemHovered] = useState(null);
-
-  const mouseEnterHandler = id => () => setItemHovered(id);
-  const onMouseLeave = () => setItemHovered(null);
+  const [itemHovered, mouseEnterHandler, onMouseLeave] = useHover();
 
   useEffect(() => {
     if (!find(filteredSalads, ['id', activeSaladId])) setActiveSaladId(null);
@@ -80,7 +77,7 @@ const Salads = ({ history }) => {
                   activeClassName={activeSaladId === id ? styles.active : ''}
                   onMouseEnter={mouseEnterHandler(id)}
                   onMouseLeave={onMouseLeave}
-                  image={saladsImages[index % 2]}
+                  image={[salad1, salad2][index % 2]}
                   description={(
                     ingredients.length
                       ? `Ingredients: ${ingredients.map((ingredient => ingredient.name)).join(', ')}`
@@ -93,7 +90,13 @@ const Salads = ({ history }) => {
                 />
               ))}
             </Item.Group>
-          ) : /* !salads.length ? */'Create a salad'/* : 'No results found' */}
+          ) : (
+            <EmptyPlaceholder
+              filteredData={filteredSalads}
+              data={salads}
+              itemName="salad"
+            />
+          )}
         </div>
       )}
       bottomRight={activeSalad && (

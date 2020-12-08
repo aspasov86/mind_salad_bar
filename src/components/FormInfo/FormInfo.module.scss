@@ -1,0 +1,12 @@
+.grid {
+  :global(.row):first-of-type {
+    padding-top: 1rem !important
+  } 
+  :global(.row) {
+    padding-top: .6rem !important
+  } 
+  span {
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+}

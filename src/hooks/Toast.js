@@ -21,11 +21,20 @@ const useToast = () => {
           time: 0,
           onClose
         };
-      case 'success':
+      case 'create':
         return {
           type: 'success',
           title: 'Success',
           description: 'Successfully added',
+          animation: 'fly right',
+          time: 2000,
+          onClose
+        };
+      case 'edit':
+        return {
+          type: 'success',
+          title: 'Success',
+          description: 'Successfully updated',
           animation: 'fly right',
           time: 2000,
           onClose

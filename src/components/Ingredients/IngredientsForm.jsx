@@ -1,24 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
-import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
-import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment/Segment';
 import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid/Grid';
 import useInput from '../../hooks/Input';
-import { createIngredient, updateIngredient } from '../../services/services';
+import useMultiselect from '../../hooks/Multiselect';
+import { createIngredient, updateIngredient } from '../../services/ingredientService';
 import Layout from '../Layout/Layout';
 import useAsyncSave from '../../hooks/AsyncSave';
-import styles from './IngredientsForm.module.scss';
+import FormInfo from '../FormInfo/FormInfo';
+import FormButtons from '../FormButtons/FormButtons';
 
 const IngredientsForm = ({
   history, mode, data, loading
 }) => {
-  const [options, setOptions] = useState([{ key: '1', text: 'gluten-free', value: 'gluten-free' }]);
-  const [ingredientName, onIngredientNameChange, setIngredientName] = useInput();
-  const [ingredienTags, onIngredienTagsChange, setIngredientTags] = useInput([]);
-  const [ingredientImage, onIngredientImageChange, setIngredientImage] = useInput();
-  const [ingredientCalories, onIngredientCaloriesChange, setIngredientCalories] = useInput();
+  const [ingredientName, onIngredientNameChange] = useInput('', get(data, 'name'));
+  const [
+    ingredienTags, onIngredienTagsChange, options, onAddItem
+  ] = useMultiselect([], [{ key: '1', text: 'gluten-free', value: 'gluten-free' }], get(data, 'tags'));
+  const [ingredientImage, onIngredientImageChange] = useInput('', get(data, 'image'));
+  const [ingredientCalories, onIngredientCaloriesChange] = useInput('', get(data, 'calories'));
+
   const onBack = () => history.push('/ingredients');
+
   const [saving, onSave] = useAsyncSave(async () => {
     let res = null;
     const fetchData = {
@@ -32,87 +36,43 @@ const IngredientsForm = ({
     } else {
       res = await createIngredient(fetchData);
     }
-    if (res) onBack();
+    return res;
   }, onBack);
-
-  useEffect(() => {
-    if (data) {
-      setIngredientName(data.name);
-      setOptions([...data.tags.map(tag => ({ key: tag, value: tag, text: tag })), ...options]);
-      setIngredientTags(data.tags);
-      setIngredientImage(data.image);
-      setIngredientCalories(data.calories);
-    }
-  }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const onAddItem = (event, { value }) => setOptions([{ text: value, value }, ...options]);
 
   return (
     <Layout
-      title={mode === 'create' ? 'NEW INGREDIENT' : 'EDIT INGREDIENT'}
+      title={mode === 'create' ? 'New ingredient' : 'Edit ingredient'}
       tools={(
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Button
-            icon="arrow left"
-            label={{ basic: true, content: 'Ingredients' }}
-            labelPosition="right"
-            onClick={onBack}
-          />
-          <Button
-            icon="save outline"
-            label={{ basic: true, content: 'Save' }}
-            onClick={onSave}
-            loading={saving}
-            labelPosition="left"
-            className={styles.saveBtn}
-          />
-        </div>
+        <FormButtons
+          backBtnText="Ingredients"
+          onBack={onBack}
+          onSave={onSave}
+          saving={saving}
+        />
       )}
       bottomRight={(
-        <Grid columns={1} style={{ marginRight: 0 }}>
-          <Grid.Row>
-            <Grid.Column>
-              <Segment basic>
-                Ingredient
-                {' '}
-                <span style={{ fontWeight: 900, textTransform: 'uppercase' }}>name</span>
-                {' '}
-                is required. It doesn&apos;t have to be unique. It&apos;s required
-              </Segment>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column>
-              <Segment basic>
-                Multiple
-                {' '}
-                <span style={{ fontWeight: 900, textTransform: 'uppercase' }}>tags</span>
-                {' '}
-                can be added and/or removed. Ingredients can be filtered by them. They are not required.
-              </Segment>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column>
-              <Segment basic>
-                Link to the ingredient
-                {' '}
-                <span style={{ fontWeight: 900, textTransform: 'uppercase' }}>image</span>
-                {' '}
-                is required.
-              </Segment>
-            </Grid.Column>
-            <Grid.Column>
-              <Segment basic>
-                Ingredient
-                {' '}
-                <span style={{ fontWeight: 900, textTransform: 'uppercase' }}>calories</span>
-                {' '}
-                is required. Only numbers are acceptable.
-              </Segment>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+        <FormInfo
+          infoPieces={[
+            {
+              accentPart: 1,
+              textParts: ['Ingredient', 'name', 'is required. It doesn\'t have to be unique. It\'s required']
+            },
+            {
+              accentPart: 1,
+              textParts: [
+                'Multiple', 'tags', 'can be added and/or removed. Ingredients can be filtered by them. They are not required.'
+              ]
+            },
+            {
+              accentPart: 1,
+              textParts: ['Link to the ingredient', 'image', 'is required.']
+            },
+            {
+              accentPart: 1,
+              textParts: ['Ingredient', 'calories', 'is required. Only numbers are acceptable.']
+            }
+          ]}
+        />
       )}
       bottomLeft={(
         <Grid columns={1} style={{ marginRight: 0 }}>

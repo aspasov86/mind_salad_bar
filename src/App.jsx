@@ -11,7 +11,8 @@ const App = () => {
   useEffect(() => {
     axios.interceptors.response.use(
       (response) => {
-        if (response.status === 201) sendToast('success');
+        if (response.config.method === 'put' && response.status === 200) sendToast('edit');
+        if (response.status === 201) sendToast('create');
         return response;
       },
       () => sendToast('error')

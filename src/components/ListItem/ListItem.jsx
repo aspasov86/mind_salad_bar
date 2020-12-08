@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Item from 'semantic-ui-react/dist/commonjs/views/Item/Item';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon/Icon';
-import Statistic from 'semantic-ui-react/dist/commonjs/views/Statistic/Statistic';
 import Label from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
 import DeletePopup from '../DeletePopup/DeletePopup';
+import CaloriesNumber from '../CaloriesNumber/CaloriesNumber';
 import styles from './ListItem.module.scss';
 
 const getItemStyle = (hovered, activeClassName) => {
@@ -29,12 +29,7 @@ const ListItem = ({
       <Item.Header>{title}</Item.Header>
       {description && <Item.Description>{description}</Item.Description>}
       <Item.Extra>
-        <Statistic floated="right">
-          <Statistic.Value>
-            {statistic}
-          </Statistic.Value>
-          <Statistic.Label>Calories</Statistic.Label>
-        </Statistic>
+        <CaloriesNumber num={statistic} floated="right" />
         {tags.map(tag => <Label key={tag}>{tag}</Label>)}
       </Item.Extra>
     </Item.Content>

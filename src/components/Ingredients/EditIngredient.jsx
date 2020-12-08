@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import IngredientsForm from './IngredientsForm';
-import { getIngredientById } from '../../services/services';
+import { getIngredientById } from '../../services/ingredientService';
 import useFetching from '../../hooks/Fetching';
 
 const EditIngredient = ({ match, ...props }) => {

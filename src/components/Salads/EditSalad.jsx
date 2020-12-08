@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SaladForm from './SaladForm';
-import { getSaladById } from '../../services/services';
+import { getSaladById } from '../../services/saladService';
 import useFetching from '../../hooks/Fetching';
 
 const EditSalad = ({ match, ...props }) => {
