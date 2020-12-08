@@ -68,7 +68,7 @@ const Salads = ({ history }) => {
         <Loader />
       ) : (
         <div>
-          {filteredSalads && filteredSalads.length ? (
+          {filteredSalads && !!filteredSalads.length ? (
             <Item.Group divided>
               {filteredSalads.map(({
                 id, name, ingredients, tags

@@ -9,7 +9,7 @@ const EmptyPlaceholder = ({ filteredData, data, itemName }) => (
         {`Create new ${itemName.toLowerCase()}`}
       </Segment>
     )}
-    {!filteredData.length && data.length && (
+    {filteredData.length === 0 && data.length !== 0 && (
       <Segment>
         No results found
       </Segment>
@@ -17,9 +17,11 @@ const EmptyPlaceholder = ({ filteredData, data, itemName }) => (
   </>
 );
 
+EmptyPlaceholder.defaultProps = { data: null };
+
 EmptyPlaceholder.propTypes = {
   filteredData: PropTypes.arrayOf(PropTypes.object).isRequired,
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.object),
   itemName: PropTypes.string.isRequired
 };
 

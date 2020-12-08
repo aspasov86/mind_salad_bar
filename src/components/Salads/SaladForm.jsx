@@ -161,7 +161,7 @@ const SaladForm = ({
                     ) : (
                       <EmptyPlaceholder
                         filteredData={filteredIngredients}
-                        data={data.ingredients}
+                        data={get(data, 'ingredients', [])}
                         itemName="ingredient"
                       />
                     )}
