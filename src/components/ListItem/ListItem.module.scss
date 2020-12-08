@@ -1,3 +1,5 @@
+@import '../../constants/variables.scss';
+
 .hover {
   box-shadow: 0 5px 16px rgba(255, 185, 38, 0.19) !important;
   background: rgba(255, 185, 38, 0.09) !important;
@@ -25,5 +27,5 @@
   }
 }
 .deleteIcon {
-  color: #d11a2a !important;
+  color: $delete-color !important;
 }

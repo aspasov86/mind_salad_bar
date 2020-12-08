@@ -11,6 +11,7 @@ import useAsyncSave from '../../hooks/AsyncSave';
 import FormInfo from '../FormInfo/FormInfo';
 import FormButtons from '../FormButtons/FormButtons';
 import styles from './IngredientsForm.module.scss';
+import { CREATE, EDIT } from '../../constants/constants';
 
 const IngredientsForm = ({
   history, mode, data, loading
@@ -32,7 +33,7 @@ const IngredientsForm = ({
       image: ingredientImage,
       calories: parseInt(ingredientCalories, 10)
     };
-    if (mode === 'edit' && data) {
+    if (mode === EDIT && data) {
       res = await updateIngredient(data.id, fetchData);
     } else {
       res = await createIngredient(fetchData);
@@ -42,7 +43,7 @@ const IngredientsForm = ({
 
   return (
     <Layout
-      title={mode === 'create' ? 'New ingredient' : 'Edit ingredient'}
+      title={mode === CREATE ? 'New ingredient' : 'Edit ingredient'}
       tools={(
         <FormButtons
           backBtnText="Ingredients"
@@ -149,7 +150,7 @@ IngredientsForm.defaultProps = { data: null, loading: null };
 
 IngredientsForm.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
-  mode: PropTypes.oneOf(['create', 'edit']).isRequired,
+  mode: PropTypes.oneOf([CREATE, EDIT]).isRequired,
   data: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,

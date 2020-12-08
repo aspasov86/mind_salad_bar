@@ -1,10 +1,12 @@
+@import '../../constants/variables.scss';
+
 .formButtons {
   display: flex;
   justify-content: space-between;
 }
 .saveBtn {
   button {
-    background-color: #C12B68 !important;
+    background-color: $purple-color !important;
     color: #fff !important;
   }
 }

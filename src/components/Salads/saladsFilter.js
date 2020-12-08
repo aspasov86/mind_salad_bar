@@ -1,3 +1,5 @@
+import { CALORIES, ASC } from '../../constants/constants';
+
 export const caloriesReducer = ingredients => ingredients.reduce((ttl, curr) => ttl + curr.calories, 0);
 
 const saladsFilter = (data, {
@@ -7,14 +9,14 @@ const saladsFilter = (data, {
   .filter(({ tags }) => (tagFilter ? tags.includes(tagFilter) : true))
   .sort((a, b) => {
     let result = 0;
-    if (filterBy === 'calories') {
+    if (filterBy === CALORIES) {
       const itemA = caloriesReducer(a.ingredients);
       const itemB = caloriesReducer(b.ingredients);
-      result = sortType === 'asc' ? itemA - itemB : itemB - itemA;
+      result = sortType === ASC ? itemA - itemB : itemB - itemA;
     } else {
       const itemA = a.name.toLowerCase();
       const itemB = b.name.toLowerCase();
-      result = sortType === 'asc' ? itemA.localeCompare(itemB) : itemB.localeCompare(itemA);
+      result = sortType === ASC ? itemA.localeCompare(itemB) : itemB.localeCompare(itemA);
     }
     return result;
   });

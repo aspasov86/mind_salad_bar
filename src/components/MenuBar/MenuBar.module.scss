@@ -1,3 +1,5 @@
+@import '../../constants/variables.scss';
+
 .menubar {
   font-Family: inherit !important;
   h3, a {
@@ -19,11 +21,11 @@
 }
 
 .firstColor {
-  color: #3EB477 !important;
+  color: $green-color !important;
 }
 .secondColor {
-  color: #FFB926 !important;
+  color: $orange-color!important;
 }
 .thirdColor {
-  color: #C12B68 !important;
+  color: $purple-color !important;
 }

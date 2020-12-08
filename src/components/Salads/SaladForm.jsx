@@ -20,6 +20,7 @@ import TopBar from '../Layout/TopBar';
 import CheckListItem from '../CheckListItem/CheckListItem';
 import EmptyPlaceholder from '../EmptyPlaceholder/EmptyPlaceholder';
 import useMultiselect from '../../hooks/Multiselect';
+import { CREATE, EDIT } from '../../constants/constants';
 import styles from './SaladForm.module.scss';
 
 const SaladForm = ({
@@ -48,11 +49,11 @@ const SaladForm = ({
     onBack
   );
 
-  const onSave = async () => (mode === 'edit' ? update() : create());
+  const onSave = async () => (mode === EDIT ? update() : create());
 
   return (
     <Layout
-      title={mode === 'create' ? 'New salad' : 'Edit salad'}
+      title={mode === CREATE ? 'New salad' : 'Edit salad'}
       tools={(
         <FormButtons
           backBtnText="Salads"
@@ -171,7 +172,7 @@ SaladForm.defaultProps = { data: null, loading: null };
 
 SaladForm.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
-  mode: PropTypes.oneOf(['create', 'edit']).isRequired,
+  mode: PropTypes.oneOf([CREATE, EDIT]).isRequired,
   data: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,

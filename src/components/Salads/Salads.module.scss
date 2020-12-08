@@ -1,6 +1,8 @@
+@import '../../constants/variables.scss';
+
 .active {
   box-shadow: 0 5px 16px rgba(62, 180, 119, 0.19) !important;
-  border-left: 2px solid #3EB477 !important;
+  border-left: 2px solid $green-color !important;
   background: rgba(62, 180, 119, 0.09) !important
 }
 
@@ -17,7 +19,7 @@
 .newBtn {
   flex-grow: 17;
   button {
-    background-color: #FFB926 !important;
+    background-color: $orange-color !important;
     color: white !important;
   }
 }

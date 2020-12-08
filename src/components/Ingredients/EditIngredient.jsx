@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import IngredientsForm from './IngredientsForm';
 import { getIngredientById } from '../../services/ingredientService';
 import useFetching from '../../hooks/Fetching';
+import { EDIT } from '../../constants/constants';
 
 const EditIngredient = ({ match, ...props }) => {
   const [ingredient, loading] = useFetching(getIngredientById.bind(null, match.params.id));
   return (
     <IngredientsForm
-      mode="edit"
+      mode={EDIT}
       loading={loading}
       data={ingredient}
       {...props}

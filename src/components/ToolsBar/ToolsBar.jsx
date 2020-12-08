@@ -5,6 +5,9 @@ import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
 import Dropdown from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
 import useInput from '../../hooks/Input';
+import {
+  CALORIES, NAME, ASC, DESC
+} from '../../constants/constants';
 import styles from './ToolsBar.module.scss';
 
 const ToolsBar = ({ data, storeFilteredData, filterFn }) => {
@@ -17,8 +20,8 @@ const ToolsBar = ({ data, storeFilteredData, filterFn }) => {
     }
     return uniq(tags);
   }, [data]);
-  const [filterBy, filterByHandler] = useInput('calories');
-  const [sortType, setSortType] = useState('desc');
+  const [filterBy, filterByHandler] = useInput(CALORIES);
+  const [sortType, setSortType] = useState(DESC);
 
   useEffect(() => {
     storeFilteredData(data);
@@ -32,7 +35,7 @@ const ToolsBar = ({ data, storeFilteredData, filterFn }) => {
     }
   }, [searchTerm, tagFilter, filterBy, sortType]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const sortByHandler = () => setSortType(sortType === 'desc' ? 'asc' : 'desc');
+  const sortByHandler = () => setSortType(sortType === DESC ? ASC : DESC);
   return (
     <div className={styles.bar}>
       <Input
@@ -55,14 +58,14 @@ const ToolsBar = ({ data, storeFilteredData, filterFn }) => {
         <Dropdown
           inline
           options={[
-            { key: 'calories', text: 'calories', value: 'calories' },
-            { key: 'name', text: 'name', value: 'name' }
+            { key: CALORIES, text: CALORIES, value: CALORIES },
+            { key: NAME, text: NAME, value: NAME }
           ]}
           value={filterBy}
           onChange={filterByHandler}
         />
         <Button
-          icon={`sort numeric ${sortType === 'asc' ? 'down' : 'up'}`}
+          icon={`sort numeric ${sortType === ASC ? 'down' : 'up'}`}
           circular
           onClick={sortByHandler}
         />

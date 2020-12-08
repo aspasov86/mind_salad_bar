@@ -1,4 +1,6 @@
+@import '../../constants/variables.scss';
+
 .button {
-  background: #d11a2a !important;
+  background: $delete-color !important;
   color: #fff !important;
 }
