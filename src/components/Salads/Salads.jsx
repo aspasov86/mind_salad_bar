@@ -17,6 +17,7 @@ import useFetching from '../../hooks/Fetching';
 import useHover from '../../hooks/Hover';
 import Loader from '../Loader/Loader';
 import EmptyPlaceholder from '../EmptyPlaceholder/EmptyPlaceholder';
+import TopBar from '../Layout/TopBar';
 
 const Salads = ({ history }) => {
   const [salads, loading, fetchSalads] = useFetching(getSalads);
@@ -43,22 +44,25 @@ const Salads = ({ history }) => {
     <Layout
       title="SALADS"
       tools={(
-        <div style={{ display: 'flex', alignItems: 'stretch' }}>
-          <div style={{ flexGrow: 17 }}>
-            <Button
-              icon="add"
-              label={{ basic: true, content: 'New salad' }}
-              labelPosition="right"
-              onClick={onAddNew}
-              className={styles.newBtn}
+        <TopBar
+          left={(
+            <div className={styles.newBtn}>
+              <Button
+                icon="add"
+                label={{ basic: true, content: 'New salad' }}
+                labelPosition="right"
+                onClick={onAddNew}
+              />
+            </div>
+          )}
+          right={(
+            <ToolsBar
+              data={salads}
+              storeFilteredData={setFilteredSalads}
+              filterFn={saladsFilter}
             />
-          </div>
-          <ToolsBar
-            data={salads}
-            storeFilteredData={setFilteredSalads}
-            filterFn={saladsFilter}
-          />
-        </div>
+          )}
+        />
       )}
       bottomLeft={loading ? (
         <Loader />

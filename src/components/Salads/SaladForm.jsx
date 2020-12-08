@@ -20,6 +20,7 @@ import TopBar from '../Layout/TopBar';
 import CheckListItem from '../CheckListItem/CheckListItem';
 import EmptyPlaceholder from '../EmptyPlaceholder/EmptyPlaceholder';
 import useMultiselect from '../../hooks/Multiselect';
+import styles from './SaladForm.module.scss';
 
 const SaladForm = ({
   history, mode, data, loading
@@ -83,7 +84,7 @@ const SaladForm = ({
         />
       )}
       bottomLeft={(
-        <Grid columns={1} style={{ marginRight: 0 }}>
+        <Grid columns={1} className={styles.grid}>
           <Grid.Row>
             <Grid.Column>
               <Form>
@@ -120,11 +121,7 @@ const SaladForm = ({
           <Grid.Row>
             <Grid.Column>
               <TopBar
-                left={(
-                  <div style={{ flexGrow: 17, fontSize: '.93rem', alignSelf: 'flex-end' }}>
-                    Ingredients
-                  </div>
-                )}
+                left={<div className={styles.ingredientsLabel}>Ingredients</div>}
                 right={(
                   <ToolsBar
                     data={ingredients}
@@ -133,7 +130,7 @@ const SaladForm = ({
                   />
                 )}
               />
-              <Segment.Group style={{ maxHeight: '54vh', minHeight: '20vh', overflowY: 'scroll' }}>
+              <Segment.Group className={styles.checkList}>
                 {loadingIngredients ? (
                   <Loader />
                 ) : (

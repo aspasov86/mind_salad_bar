@@ -1,0 +1,26 @@
+.grid {
+  box-shadow: none !important;
+  margin: 0 !important;
+}
+
+.firstRow, .topSecondColumn {
+  box-shadow: 0 0 0 0 #d4d4d5 !important;
+}
+
+.topFirstColumn {
+  font-size: 1.4rem !important;
+  font-weight: bold !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  padding-Right: 0 !important;
+  text-transform: uppercase !important;
+}
+
+.secondRow {
+  height: 80vh !important;
+}
+
+.bottomLeftColumn {
+  height: 100% !important;
+  overflow-y: scroll !important;
+}

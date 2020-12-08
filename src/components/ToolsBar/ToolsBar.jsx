@@ -5,6 +5,7 @@ import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
 import Dropdown from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
 import useInput from '../../hooks/Input';
+import styles from './ToolsBar.module.scss';
 
 const ToolsBar = ({ data, storeFilteredData, filterFn }) => {
   const [searchTerm, searchTermHandler] = useInput();
@@ -33,7 +34,7 @@ const ToolsBar = ({ data, storeFilteredData, filterFn }) => {
 
   const sortByHandler = () => setSortType(sortType === 'desc' ? 'asc' : 'desc');
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', flexGrow: 1 }}>
+    <div className={styles.bar}>
       <Input
         placeholder="Search by name..."
         icon="search"
@@ -49,8 +50,8 @@ const ToolsBar = ({ data, storeFilteredData, filterFn }) => {
         disabled={!allUniqSaladTags.length}
         clearable
       />
-      <div style={{ display: 'flex', alignItems: 'baseline', width: '11rem' }}>
-        <div style={{ marginRight: '.2rem' }}>Sort by</div>
+      <div className={styles.multi}>
+        <div className={styles.sortBy}>Sort by</div>
         <Dropdown
           inline
           options={[
@@ -61,7 +62,6 @@ const ToolsBar = ({ data, storeFilteredData, filterFn }) => {
           onChange={filterByHandler}
         />
         <Button
-          style={{ marginLeft: 'auto' }}
           icon={`sort numeric ${sortType === 'asc' ? 'down' : 'up'}`}
           circular
           onClick={sortByHandler}

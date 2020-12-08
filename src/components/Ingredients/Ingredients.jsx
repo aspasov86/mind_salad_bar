@@ -31,13 +31,12 @@ const Ingredients = ({ history }) => {
       tools={(
         <TopBar
           left={(
-            <div style={{ flexGrow: 17 }}>
+            <div className={styles.newBtn}>
               <Button
                 icon="add"
                 label={{ basic: true, content: 'New ingredient' }}
                 labelPosition="right"
                 onClick={onAddNew}
-                className={styles.newBtn}
               />
             </div>
           )}

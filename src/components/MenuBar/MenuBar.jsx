@@ -6,25 +6,19 @@ import Container from 'semantic-ui-react/dist/commonjs/elements/Container/Contai
 import vegetables from '../../media/veg.png';
 import styles from './MenuBar.module.scss';
 
-const style = {
-  width: '100%',
-  backgroundImage: `url(${vegetables})`,
-  backgroundRepeat: 'repeat-x',
-  backgroundSize: '10rem 1rem',
-  backgroundPositionY: '.15rem',
-  height: '1.5rem'
-};
-
 const MenuBar = () => (
   <div>
-    <div style={style} />
+    <div
+      style={{ backgroundImage: `url(${vegetables})` }}
+      className={styles.topTapeImage}
+    />
     <Container>
       <Menu secondary className={styles.menubar}>
         <Menu.Item>
           <Header as="h3">
-            <span style={{ color: '#3EB477' }}>Mind</span>
-            <span style={{ color: '#FFB926' }}>salad</span>
-            <span style={{ color: '#C12B68' }}>bar</span>
+            <span className={styles.firstColor}>Mind</span>
+            <span className={styles.secondColor}>salad</span>
+            <span className={styles.thirdColor}>bar</span>
           </Header>
         </Menu.Item>
         <Menu.Menu position="right">

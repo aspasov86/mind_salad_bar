@@ -7,6 +7,7 @@ import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid/Grid';
 import Checkbox from 'semantic-ui-react/dist/commonjs/modules/Checkbox/Checkbox';
 import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
 import CaloriesNumber from '../CaloriesNumber/CaloriesNumber';
+import styles from './CheckListItem.module.scss';
 
 const CheckListItem = ({
   checkboxDisabled, checked, onChange, image, name, tags, calories
@@ -16,8 +17,8 @@ const CheckListItem = ({
       <Grid.Column width={1} textAlign="center" verticalAlign="middle">
         <Checkbox disabled={checkboxDisabled} checked={checked} onChange={onChange} />
       </Grid.Column>
-      <Grid.Column width={1} style={{ paddingLeft: 0, paddingRight: 0 }}>
-        <Image src={image} style={{ height: '4rem', width: '4rem' }} rounded />
+      <Grid.Column width={1} className={styles.imageColumn}>
+        <Image src={image} rounded />
       </Grid.Column>
       <Grid.Column>
         <Grid.Row>

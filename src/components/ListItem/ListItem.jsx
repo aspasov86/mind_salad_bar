@@ -24,7 +24,7 @@ const ListItem = ({
     onMouseEnter={onMouseEnter}
     onMouseLeave={onMouseLeave}
   >
-    <Item.Image src={image} style={{ width: '9rem' }} />
+    <Item.Image src={image} className={styles.image} />
     <Item.Content>
       <Item.Header>{title}</Item.Header>
       {description && <Item.Description>{description}</Item.Description>}
@@ -40,7 +40,7 @@ const ListItem = ({
         <Icon
           name="trash alternate"
           size="large"
-          style={{ color: '#d11a2a' }}
+          className={styles.deleteIcon}
         />
       </DeletePopup>
     </div>

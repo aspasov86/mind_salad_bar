@@ -10,6 +10,7 @@ import Layout from '../Layout/Layout';
 import useAsyncSave from '../../hooks/AsyncSave';
 import FormInfo from '../FormInfo/FormInfo';
 import FormButtons from '../FormButtons/FormButtons';
+import styles from './IngredientsForm.module.scss';
 
 const IngredientsForm = ({
   history, mode, data, loading
@@ -75,7 +76,7 @@ const IngredientsForm = ({
         />
       )}
       bottomLeft={(
-        <Grid columns={1} style={{ marginRight: 0 }}>
+        <Grid columns={1} className={styles.form}>
           <Grid.Row>
             <Grid.Column>
               <Form>

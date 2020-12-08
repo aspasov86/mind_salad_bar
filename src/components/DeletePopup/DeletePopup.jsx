@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from 'semantic-ui-react/dist/commonjs/modules/Modal/Modal';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
 import useAsyncSave from '../../hooks/AsyncSave';
+import styles from './DeletePopup.module.scss';
 
 const DeletePopup = ({ children, onDelete }) => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -22,7 +23,7 @@ const DeletePopup = ({ children, onDelete }) => {
         <Modal.Actions>
           <Button
             onClick={deleteItem}
-            style={{ background: '#d11a2a', color: '#fff' }}
+            className={styles.button}
             loading={deleting}
           >
             Delete

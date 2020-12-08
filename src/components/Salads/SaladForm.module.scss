@@ -1,0 +1,14 @@
+.grid {
+  margin-right: 0 !important;
+}
+.ingredientsLabel {
+  flex-grow: 17;
+  font-size: .93rem;
+  align-self: flex-end;
+}
+
+.checkList {
+  max-height: 54vh !important;
+  min-height: 20vh !important;
+  overflow-y: scroll !important;
+}
