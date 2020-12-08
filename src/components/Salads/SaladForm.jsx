@@ -20,6 +20,7 @@ import TopBar from '../Layout/TopBar';
 import CheckListItem from '../CheckListItem/CheckListItem';
 import EmptyPlaceholder from '../EmptyPlaceholder/EmptyPlaceholder';
 import useMultiselect from '../../hooks/Multiselect';
+import useSimpleFormValidation from '../../hooks/FormValidation';
 import { CREATE, EDIT } from '../../constants/constants';
 import styles from './SaladForm.module.scss';
 
@@ -35,17 +36,23 @@ const SaladForm = ({
   const [
     saladIngredients, checkIfSelected, checkboxClickHandler
   ] = useCheckboxes(ingredients, get(data, 'ingredients'));
-
+  const [errors, checkIfFormValid] = useSimpleFormValidation({ name: saladName });
   const onBack = () => history.push('/salads');
 
   const [creating, create] = useAsyncSave(
-    async () => createSalad({ name: saladName, tags: saladTags, ingredients: saladIngredients }),
+    async () => {
+      if (checkIfFormValid()) createSalad({ name: saladName, tags: saladTags, ingredients: saladIngredients });
+    },
     onBack
   );
   const [updating, update] = useAsyncSave(
-    async () => updateSalad({
-      id: data.id, name: saladName, tags: saladTags, ingredients: saladIngredients
-    }),
+    async () => {
+      if (checkIfFormValid()) {
+        updateSalad({
+          id: data.id, name: saladName, tags: saladTags, ingredients: saladIngredients
+        });
+      }
+    },
     onBack
   );
 
@@ -96,6 +103,7 @@ const SaladForm = ({
                   onChange={onSaladNameChange}
                   loading={loading}
                   disabled={loading}
+                  error={errors.name}
                 />
               </Form>
             </Grid.Column>

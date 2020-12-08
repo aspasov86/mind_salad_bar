@@ -12,6 +12,7 @@ import FormInfo from '../FormInfo/FormInfo';
 import FormButtons from '../FormButtons/FormButtons';
 import styles from './IngredientsForm.module.scss';
 import { CREATE, EDIT } from '../../constants/constants';
+import useSimpleFormValidation from '../../hooks/FormValidation';
 
 const IngredientsForm = ({
   history, mode, data, loading
@@ -22,21 +23,27 @@ const IngredientsForm = ({
   ] = useMultiselect([], [{ key: '1', text: 'gluten-free', value: 'gluten-free' }], get(data, 'tags'));
   const [ingredientImage, onIngredientImageChange] = useInput('', get(data, 'image'));
   const [ingredientCalories, onIngredientCaloriesChange] = useInput('', get(data, 'calories'));
-
+  const [errors, checkIfFormValid] = useSimpleFormValidation({
+    name: ingredientName,
+    image: ingredientImage,
+    calories: ingredientCalories
+  });
   const onBack = () => history.push('/ingredients');
 
   const [saving, onSave] = useAsyncSave(async () => {
     let res = null;
-    const fetchData = {
-      name: ingredientName,
-      tags: ingredienTags,
-      image: ingredientImage,
-      calories: parseInt(ingredientCalories, 10)
-    };
-    if (mode === EDIT && data) {
-      res = await updateIngredient(data.id, fetchData);
-    } else {
-      res = await createIngredient(fetchData);
+    if (checkIfFormValid()) {
+      const fetchData = {
+        name: ingredientName,
+        tags: ingredienTags,
+        image: ingredientImage,
+        calories: parseInt(ingredientCalories, 10)
+      };
+      if (mode === EDIT && data) {
+        res = await updateIngredient(data.id, fetchData);
+      } else {
+        res = await createIngredient(fetchData);
+      }
     }
     return res;
   }, onBack);
@@ -88,6 +95,7 @@ const IngredientsForm = ({
                   onChange={onIngredientNameChange}
                   loading={loading}
                   disabled={loading}
+                  error={errors.name}
                 />
               </Form>
             </Grid.Column>
@@ -121,6 +129,7 @@ const IngredientsForm = ({
                   onChange={onIngredientImageChange}
                   loading={loading}
                   disabled={loading}
+                  error={errors.image}
                 />
               </Form>
             </Grid.Column>
@@ -136,6 +145,7 @@ const IngredientsForm = ({
                   onChange={onIngredientCaloriesChange}
                   loading={loading}
                   disabled={loading}
+                  error={errors.calories}
                 />
               </Form>
             </Grid.Column>
