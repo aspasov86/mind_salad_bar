@@ -67,7 +67,7 @@ const Salads = ({ history }) => {
       bottomLeft={loading ? (
         <Loader />
       ) : (
-        <div>
+        <div className={styles.items}>
           {filteredSalads && !!filteredSalads.length ? (
             <Item.Group divided>
               {filteredSalads.map(({

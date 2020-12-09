@@ -52,7 +52,7 @@ const Ingredients = ({ history }) => {
       bottom={loading ? (
         <Loader />
       ) : (
-        <div>
+        <div className={styles.items}>
           {filteredIngredients && filteredIngredients.length ? (
             <Item.Group divided>
               {filteredIngredients.map(({
