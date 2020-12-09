@@ -65,7 +65,7 @@ const ToolsBar = ({ data, storeFilteredData, filterFn }) => {
           onChange={filterByHandler}
         />
         <Button
-          icon={`sort numeric ${sortType === ASC ? 'down' : 'up'}`}
+          icon={`sort ${filterBy === CALORIES ? 'numeric' : 'alphabet'} ${sortType === ASC ? 'down' : 'up'}`}
           circular
           onClick={sortByHandler}
         />
