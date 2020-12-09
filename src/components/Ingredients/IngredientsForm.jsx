@@ -80,7 +80,9 @@ const IngredientsForm = ({
             {
               accentPart: 1,
               textParts: [
-                'Multiple', 'tags', 'can be added and/or removed. Ingredients can be filtered by them. They are not required.'
+                'Multiple custom',
+                'tags',
+                'can be added and/or removed. Ingredients can be filtered by them. They are not required.'
               ]
             },
             {

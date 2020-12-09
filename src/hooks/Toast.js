@@ -39,6 +39,15 @@ const useToast = () => {
           time: 2000,
           onClose
         };
+      case 'not-found':
+        return {
+          type: 'error',
+          title: 'Not found',
+          description: 'Page not found',
+          animation: 'fly right',
+          time: 2000,
+          onClose
+        };
       default:
         return null;
     }

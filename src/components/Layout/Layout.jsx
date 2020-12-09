@@ -15,7 +15,7 @@ const Layout = ({
     </Grid.Row>
     <Grid.Row className={styles.secondRow}>
       {bottom ? (
-        <Grid.Column>{bottom}</Grid.Column>
+        <Grid.Column className={styles.bottom}>{bottom}</Grid.Column>
       ) : (
         <>
           <Grid.Column width={11} className={styles.bottomLeftColumn}>{bottomLeft}</Grid.Column>

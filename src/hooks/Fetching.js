@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { get } from 'lodash';
+import { useHistory } from 'react-router-dom';
 import useIsMounted from './isMounted';
 
 function useFetching(fetchFn, fetchOnQ = false) {
@@ -7,10 +9,11 @@ function useFetching(fetchFn, fetchOnQ = false) {
   const [data, setData] = useState(null);
   const [showLoader, shouldShowLoader] = useState(true);
   const [loading, setLoading] = useState(!fetchOnQ);
+  const history = useHistory();
 
   const fetch = (withLoader) => {
-    shouldShowLoader(!!withLoader);
-    setShouldFetch(true);
+    setStateIfMounted(shouldShowLoader, !!withLoader);
+    setStateIfMounted(setShouldFetch, true);
   };
 
   useEffect(() => {
@@ -20,6 +23,8 @@ function useFetching(fetchFn, fetchOnQ = false) {
           if (showLoader) setLoading(true);
           const response = await fetchFn();
           setStateIfMounted(setData, response);
+        } catch (error) {
+          if (get(error, 'response.status') === 404) history.push('/salads');
         } finally {
           setStateIfMounted(setLoading, false);
           setStateIfMounted(setShouldFetch, false);

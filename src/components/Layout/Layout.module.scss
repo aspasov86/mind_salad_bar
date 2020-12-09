@@ -17,10 +17,18 @@
 }
 
 .secondRow {
-  height: 80vh !important;
+  @media (min-width: 960px) {
+    height: 70vh !important;  
+  }
+  @media (max-width: 479px) {
+    height: 60vh !important;  
+  }
+  @media (min-width: 961px) {
+    height: 80vh !important;  
+  }
 }
 
-.bottomLeftColumn {
+.bottomLeftColumn, .bottom {
   height: 100% !important;
   overflow-y: scroll !important;
 }
